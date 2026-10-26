@@ -4,6 +4,23 @@
     <groupId>Trains</groupId>
     <artifactId>TrainAPI</artifactId>
     <version>1.0</version>
+    <dependencies>
+        <!-- Source: https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>27</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Source: https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>27</version>
+            <scope>compile</scope>
+        </dependency>
+        
+    </dependencies>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

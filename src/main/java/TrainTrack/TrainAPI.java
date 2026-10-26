@@ -15,7 +15,13 @@ public class TrainAPI {
         
         
         System.out.println("Hello World!");
-        
+        String str = "https://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML";
+        try {
+            APIcaller.api( str);
+        }
+        catch( Exception ex ) {
+            System.getLogger( TrainAPI.class.getName() ).log( System.Logger.Level.ERROR, (String) null, ex );
+        }
         
     }
 }
