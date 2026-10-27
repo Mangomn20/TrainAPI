@@ -7,7 +7,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
+import java.util.ArrayList;
 
 /**
  *
@@ -17,7 +17,7 @@ public class APIcaller {
     
     public static void api(String str)
         throws Exception {
-        
+            System.out.println("/APIcaller (api method) started");
             HttpClient client = HttpClient.newHttpClient(); // abstract class, but .newHttpClient gives instance
 
             // String str = "";
@@ -29,10 +29,16 @@ public class APIcaller {
                                     // .uri expects a URI object, so we add URI.create( str )
             HttpResponse<String> response = client.send(request,HttpResponse.BodyHandlers.ofString());
 
-
-            System.out.println("Status: " + response.statusCode());
-            System.out.println(response.body());
+            ArrayList temp = XMLparser.getStations(response.body());
             
-        };        
+            /*
+            return XMLparser.station(response);
+            return XMLparser.allStations(response);
+            return XMLparser.allStations(response);
+            */
+            System.out.println("Status: " + response.statusCode());
+            // System.out.println(response.body());
+            
+        };
     
 }

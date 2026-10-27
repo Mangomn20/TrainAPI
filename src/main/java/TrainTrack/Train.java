@@ -27,6 +27,14 @@ public class Train {
         this.duein = duein;
         this.exparrival = exparrival;
         this.expdepart = expdepart;
+        
+        System.out.println("Train Code: " + traincode
+        + ", Origin: " + origin
+        + ", Destination: " + destination
+        + ", Status: " + status
+        + ", Due In: " + duein
+        + ", Expected Arrival: " + exparrival
+        + ", Expected Departure: " + expdepart);
     }
         
 }

@@ -3,7 +3,7 @@
  */
 
 package TrainTrack;
-
+import java.util.Scanner;
 /**
  *
  * @author Mangomn20
@@ -12,10 +12,11 @@ package TrainTrack;
 public class TrainAPI {
 
     public static void main(String[] args) {
-        
-        
-        System.out.println("Hello World!");
-        String str = "https://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML";
+        System.out.println("Enter Station: \n");
+        Scanner input = new Scanner(System.in);
+        String station = input.nextLine();
+        System.out.println("/TrainApi started");
+        String str = "https://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML?StationDesc="+station; // dangerous
         try {
             APIcaller.api( str);
         }
