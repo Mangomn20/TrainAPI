@@ -27,10 +27,10 @@ import java.util.ArrayList;
 public class XMLparser {
     
     
-    public static ArrayList getStations(String xml)
+    public static ArrayList getTrains(String xml)
     {
-        System.out.println("/XMLparser (getStations method) started");
-        System.out.println(xml);
+        System.out.println("/XMLparser (getTrains method) started");
+        // System.out.println(xml);
         ArrayList<Train> listTrain = new ArrayList<Train>();
         //Document Builder factory isntance to create a docBuilder
 
@@ -64,7 +64,7 @@ public class XMLparser {
                 String duein = trai.getElementsByTagName("Origintime").item(0).getTextContent();
                 String exparrival = trai.getElementsByTagName("Exparrival").item(0).getTextContent();
                 String expdepart = trai.getElementsByTagName("Expdepart").item(0).getTextContent();
-                System.out.println("/XMLparser (getStations method) => Elements added");
+                System.out.println("/XMLparser (getTrains method) => Elements added");
                 listTrain.add(new Train(traincode, origin, destination, status, duein, exparrival, expdepart));
                 
                 
@@ -72,13 +72,58 @@ public class XMLparser {
 
                              
             }
-            System.out.println("/XMLparser (getStations method) after for loop");
+            System.out.println("/XMLparser (getTrains method) after for loop");
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
 
         return listTrain;
+        
+    }
+    
+    
+    
+    public static ArrayList getStations(String xml)
+    {
+        System.out.println("/XMLparser (getStations method) started");
+        // System.out.println(xml);
+        ArrayList<String> listStation = new ArrayList<String>();
+        //Document Builder factory isntance to create a docBuilder
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+         
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            Document document = builder.parse(new InputSource(new StringReader(xml))); // input
+
+            // Normalize the xml structure
+             document.getDocumentElement().normalize();
+
+            // Get all the element by the tag name
+            NodeList objStation = document.getElementsByTagName("objStation");
+            
+            System.out.println("==================");
+            System.out.println("");
+            System.out.println("Length of objStationData: " + objStation.getLength());
+            System.out.println("");
+            System.out.println("==================");
+            
+            for(int i = 0; i <objStation.getLength(); i++) {
+                Node station = objStation.item(i);
+
+                Element stationValues = (Element)station; // ArrayOfObjStationData -> objStationData -> Traincode
+                listStation.add(stationValues.getElementsByTagName("StationDesc").item(0).getTextContent());
+                   
+            }
+            System.out.println("/XMLparser (getStations method) after for loop");
+
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+        // System.out.println(listStation);
+        return listStation;
         
     }
     

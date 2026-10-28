@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class APIcaller {
     
-    public static void api(String str)
+    public static String api(String str)
         throws Exception {
             System.out.println("/APIcaller (api method) started");
             HttpClient client = HttpClient.newHttpClient(); // abstract class, but .newHttpClient gives instance
@@ -28,15 +28,25 @@ public class APIcaller {
                     .build();
                                     // .uri expects a URI object, so we add URI.create( str )
             HttpResponse<String> response = client.send(request,HttpResponse.BodyHandlers.ofString());
-
-            ArrayList temp = XMLparser.getStations(response.body());
+            
+            if(response.statusCode() == 200)
+            {
+                return response.body();
+            }
+            else
+            {
+                return null;
+            }
+            
+            
+            // ArrayList temp = XMLparser.getTrain(response.body());
             
             /*
             return XMLparser.station(response);
             return XMLparser.allStations(response);
             return XMLparser.allStations(response);
             */
-            System.out.println("Status: " + response.statusCode());
+            // System.out.println("Status: " + response.statusCode());
             // System.out.println(response.body());
             
         };
