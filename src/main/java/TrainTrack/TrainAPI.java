@@ -14,70 +14,63 @@ import java.util.Scanner;
 public class TrainAPI {
 
     public static void main(String[] args) {
-        
-        getStations();
-        
-        getReqStation();
-        
-        
+                
     }
     
-    public static void getStations()
+    public static ArrayList getStations(String type)
     {
-        ArrayList<Train> listStations = new ArrayList<Train>();
+        ArrayList listStations = new ArrayList<Train>();
         
-        String str = "https://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML?"; // dangerous api input
+        String str = "https://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML_WithStationType?StationType=" + type; // dangerous api input
         String output;  // api output
         try {
             output = APIcaller.api( str);
-            if(output != null) // APIcaller.(if not 200 return null)
-            {
                 listStations.addAll(XMLparser.getStations(output)); // copies the references of the objects
-            }
-            else{
-                System.out.println("error with getStations");
-                return;
-            }
         }
         catch( Exception ex ) { 
             System.getLogger( TrainAPI.class.getName() ).log( System.Logger.Level.ERROR, (String) null, ex );
         }
+        
+        return listStations;
     }
     
     
     
-    public static void getReqStation() // 90 min mark
+    public static ArrayList<Train> getReqStationCode(String code, int minutes) // 90 min mark
     {
         ArrayList<Train> listTrain = new ArrayList<Train>();
-        System.out.println("Enter Station: \n");
-        Scanner input = new Scanner(System.in);
-        String station = input.nextLine();
-        System.out.println("/TrainApi started");
-        input.close();
-        
-        String str = "https://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML?StationDesc="+station; // dangerous api input
+              String str3 = String.valueOf(minutes);
+
+        String str = "https://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode="+code+"&NumMins="+str3;
         String output;  // api output
         try {
             output = APIcaller.api( str);
-            if(output != null) // APIcaller.(if not 200 return null)
-            {
-                listTrain.addAll(XMLparser.getTrains(output)); // copies the references of the objects
-            }
-            else{
-                System.out.println("error with getReqStation");
-                return;
-            }
+             listTrain.addAll(XMLparser.getTrains(output)); // copies the references of the objects
         }
         catch( Exception ex ) { 
             System.getLogger( TrainAPI.class.getName() ).log( System.Logger.Level.ERROR, (String) null, ex );
         }
-        
-        
-        
-        
-        
-        
-        
+
+        return listTrain;        
+    }
+    
+     public static ArrayList<Train> getReqStationName(String name, int minutes) // 90 min mark
+    {
+        ArrayList<Train> listTrain = new ArrayList<Train>();
+         String str3 = String.valueOf(minutes);
+
+         // /realtime/realtime.asmx/getStationDataByCodeXML?StationCode=string     Coderequest
+        String str = "https://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML_withNumMins?StationDesc="+name+"&NumMins="+str3; 
+        String output;  // api output
+        try {
+            output = APIcaller.api( str);
+             listTrain.addAll(XMLparser.getTrains(output)); // copies the references of the objects
+        }
+        catch( Exception ex ) { 
+            System.getLogger( TrainAPI.class.getName() ).log( System.Logger.Level.ERROR, (String) null, ex );
+        }
+
+        return listTrain;        
     }
     
     
