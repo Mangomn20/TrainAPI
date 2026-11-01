@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class XMLparser {
     
     
-    public static ArrayList getTrains(String xml)
+    public static ArrayList<Train> getTrains(String xml)
     {
         System.out.println("/XMLparser (getTrains method) started");
         // System.out.println(xml);
@@ -84,11 +84,11 @@ public class XMLparser {
     
     
     
-    public static ArrayList getStations(String xml)
+    public static ArrayList<Station> getStations(String xml)
     {
         System.out.println("/XMLparser (getStations method) started");
         // System.out.println(xml);
-        ArrayList<String> listStation = new ArrayList<String>();
+        ArrayList<Station> listStation = new ArrayList<Station>();
         //Document Builder factory isntance to create a docBuilder
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -112,9 +112,11 @@ public class XMLparser {
             
             for(int i = 0; i <objStation.getLength(); i++) {
                 Node station = objStation.item(i);
-
+                
                 Element stationValues = (Element)station; // ArrayOfObjStationData -> objStationData -> Traincode
-                listStation.add(stationValues.getElementsByTagName("StationDesc").item(0).getTextContent());
+                String name = stationValues.getElementsByTagName("StationDesc").item(0).getTextContent();
+                String code = stationValues.getElementsByTagName("StationCode").item(0).getTextContent();
+                listStation.add(new Station(name, code));
                    
             }
             System.out.println("/XMLparser (getStations method) after for loop");

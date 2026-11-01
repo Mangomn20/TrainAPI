@@ -17,9 +17,9 @@ public class TrainAPI {
                 
     }
     
-    public static ArrayList getStations(String type)
+    public static ArrayList<Station> getStations(String type)
     {
-        ArrayList listStations = new ArrayList<Train>();
+        ArrayList listStations = new ArrayList<Station>();
         
         String str = "https://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML_WithStationType?StationType=" + type; // dangerous api input
         String output;  // api output
